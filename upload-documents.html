@@ -1,0 +1,432 @@
+
+<!-- Upload Documents - TrustAssure -->
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ClaimsPortal - Submit New Claim</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#76777d",
+                        "tertiary": "#000000",
+                        "on-background": "#0b1c30",
+                        "outline-variant": "#c6c6cd",
+                        "tertiary-container": "#002113",
+                        "surface-container-high": "#dce9ff",
+                        "primary-fixed": "#dae2fd",
+                        "on-surface": "#0b1c30",
+                        "background": "#f8f9ff",
+                        "surface-container-low": "#eff4ff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "on-secondary-fixed-variant": "#005049",
+                        "surface-variant": "#d3e4fe",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface": "#f8f9ff",
+                        "primary": "#000000",
+                        "on-primary-container": "#7c839b",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-container": "#009668",
+                        "surface-tint": "#565e74",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "secondary": "#006a61",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#86f2e4",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#006f66",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-fixed": "#89f5e7",
+                        "primary-container": "#131b2e",
+                        "on-tertiary-fixed": "#002113",
+                        "on-surface-variant": "#45464d",
+                        "secondary-fixed-dim": "#6bd8cb",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#00201d",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#6ffbbe",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#bec6e0",
+                        "inverse-surface": "#213145",
+                        "inverse-primary": "#bec6e0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "container-max-width": "1440px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "code": ["jetbrainsMono"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "code": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            backdrop-filter: blur(8px);
+            background: rgba(248, 249, 255, 0.8);
+        }
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .drag-active {
+            border-color: #006a61;
+            background-color: #eff4ff;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+<!-- Sidebar Navigation (Desktop) -->
+<aside class="bg-surface-container-low border-r border-outline-variant h-full w-64 hidden md:flex flex-col py-8 gap-4 fixed left-0 z-40">
+<div class="px-6 mb-8">
+<h1 class="font-headline-md text-headline-md font-extrabold text-on-surface">TrustAssure</h1>
+<p class="text-on-surface-variant font-label-sm opacity-70">Policyholder Portal</p>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-primary font-bold border-l-4 border-secondary bg-surface-container-highest transition-all" href="./dashboard.html">
+<span class="material-symbols-outlined" data-icon="add_box">add_box</span>
+<span class="font-label-md text-label-md">New Claim</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all pl-1" href="./my-claims.html">
+<span class="material-symbols-outlined" data-icon="list_alt">list_alt</span>
+<span class="font-label-md text-label-md">My Claims</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all pl-1" href="./upload-documents.html">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-label-md text-label-md">Documents</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all pl-1" href="./review-extracted-data.html">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="px-4 mt-auto space-y-4">
+<button class="w-full bg-error-container text-on-error-container font-label-md text-label-md py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-red-100 transition-colors">
+<span class="material-symbols-outlined" data-icon="emergency">emergency</span>
+                Emergency Support
+            </button>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg" href="./verify-claim.html">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-md text-label-md">Help Center</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 flex flex-col min-h-screen pb-20 md:pb-0">
+<!-- Top App Bar -->
+<header class="glass-header flex justify-between items-center w-full px-6 md:px-margin-desktop h-16 border-b border-outline-variant sticky top-0 z-30">
+<div class="flex items-center gap-4">
+<span class="md:hidden font-headline-lg text-headline-lg-mobile font-bold text-primary">ClaimsPortal</span>
+<span class="hidden md:block font-headline-lg text-headline-lg font-bold text-on-surface">Submit New Claim</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center bg-surface-container px-4 py-1.5 rounded-full border border-outline-variant/30">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-md text-on-surface w-40 placeholder:text-on-surface-variant/50" placeholder="Search claims..." type="text"/>
+</div>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a middle-aged man with a friendly expression, wearing a neutral business casual outfit. The lighting is soft and even, typical of a corporate profile photograph. The background is a clean, minimalist office environment with subtle blue and grey tones to match a professional UI color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmkxNQ2-eYIGzE9pZjktW9fuh_Q72FGFlxU8psJdLrLUE3RWEoKdXmpvZ_S4eqr6yq_3sE2ryyZea1DJNIR-gNgX_qSHyVhQEZUfuuggwe15hehcXgi4ZDUptZR_W8IofJRQIFTVihupwdQWESSTHipMRBXIYiDsNqgzB1faDgtl9j7_5xy2DM_d8zv0P3CbQWUTsp1OJa7P82pdnY-5eLzlvdG2r4sIzrlrIrGWwSp9H1DpLHZxiATud7X-vy1xnw1nZjZ-F7fTBR"/>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<section class="p-6 md:p-gutter max-w-container-max-width mx-auto w-full space-y-gutter">
+<!-- Progress Stepper -->
+<div class="bg-white rounded-xl p-6 border border-outline-variant flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+<div class="flex-1 w-full">
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-md text-label-md text-secondary">Step 1: Documentation</span>
+<span class="font-label-md text-label-md text-on-surface-variant">25% Complete</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-1/4 rounded-full transition-all duration-700 ease-out"></div>
+</div>
+</div>
+<div class="flex gap-2">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold">1</div>
+</div>
+<div class="w-8 h-0.5 bg-outline-variant mt-4"></div>
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center font-bold">2</div>
+</div>
+<div class="w-8 h-0.5 bg-outline-variant mt-4"></div>
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center font-bold">3</div>
+</div>
+</div>
+</div>
+<!-- Bento Grid Content -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left: Upload Section (Bento Main) -->
+<div class="lg:col-span-8 space-y-gutter">
+<!-- Drop Zone -->
+<div class="bg-surface-container-lowest border-2 border-dashed border-outline-variant rounded-2xl p-12 flex flex-col items-center justify-center text-center transition-all hover:border-secondary group cursor-pointer h-[400px]" id="dropzone">
+<div class="w-20 h-20 bg-secondary-container rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-on-secondary-container text-4xl" data-icon="cloud_upload">cloud_upload</span>
+</div>
+<h2 class="font-headline-md text-headline-md mb-2">Upload Receipts &amp; Evidence</h2>
+<p class="text-on-surface-variant font-body-md max-w-md">Drag and drop your files here, or click to browse. AI will automatically scan and verify your documents in real-time.</p>
+<div class="mt-8 flex gap-4">
+<button class="bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-xl hover:opacity-90 transition-opacity">Select Files</button>
+<button class="bg-surface-container-high text-on-surface font-label-md text-label-md px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="photo_camera">photo_camera</span>
+                                Use Camera
+                            </button>
+</div>
+<input accept="image/*,.pdf" class="hidden" id="fileInput" multiple="" type="file"/>
+</div>
+<!-- Scan Queue / AI Feedback -->
+<div class="bg-white rounded-2xl border border-outline-variant overflow-hidden">
+<div class="px-6 py-4 border-b border-outline-variant bg-surface-container-low flex items-center justify-between">
+<h3 class="font-label-md text-label-md flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="auto_awesome">auto_awesome</span>
+                                Processing Engine
+                            </h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Active Intelligence</span>
+</div>
+<div class="p-6 space-y-4">
+<!-- Scanning Item 1 (Pending) -->
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/30 group">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-outline" data-icon="image">image</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<h4 class="font-label-md text-label-md">medical_receipt_jan.jpg</h4>
+<span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded uppercase">Verifying</span>
+</div>
+<div class="mt-2 w-full h-1.5 bg-surface-container rounded-full relative overflow-hidden">
+<div class="shimmer absolute inset-0 w-full h-full"></div>
+</div>
+</div>
+</div>
+<!-- Scanned Item 2 (Verified - Emerald) -->
+<div class="flex items-center gap-4 p-4 rounded-xl border-l-4 border-emerald-500 bg-emerald-50/30 group hover:bg-emerald-50 transition-colors">
+<div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-emerald-700" data-icon="description">description</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-label-md text-label-md text-emerald-900">Hospital_Invoice_2901.pdf</h4>
+<p class="text-[11px] text-emerald-700 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                                98% confidence - Valid Claim Item
+                                            </p>
+</div>
+<span class="text-[10px] font-bold text-emerald-900 bg-emerald-100 px-2 py-0.5 rounded uppercase">Verified</span>
+</div>
+</div>
+<button class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<!-- Scanned Item 3 (Flagged - Coral) -->
+<div class="flex items-center gap-4 p-4 rounded-xl border-l-4 border-coral-500 bg-red-50/30 group hover:bg-red-50 transition-colors">
+<div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-error" data-icon="report_problem">report_problem</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-label-md text-label-md text-on-error-container">Pharmacy_Scanned_01.png</h4>
+<p class="text-[11px] text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+                                                Handwriting unreadable - Manual input required
+                                            </p>
+</div>
+<span class="text-[10px] font-bold text-on-error-container bg-error-container px-2 py-0.5 rounded uppercase">Flagged</span>
+</div>
+</div>
+<button class="bg-primary text-on-primary px-3 py-1 rounded text-[11px] font-bold">FIX</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Analysis & Instructions (Bento Sidebar) -->
+<div class="lg:col-span-4 space-y-gutter">
+<!-- Dynamic Summary Card -->
+<div class="bg-inverse-surface text-inverse-on-surface rounded-2xl p-6 space-y-6">
+<h3 class="font-headline-md text-headline-md">Real-time Analysis</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center border-b border-outline/30 pb-4">
+<span class="text-surface-variant font-label-sm">Total Detected Value</span>
+<span class="font-headline-md text-white">$1,420.50</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline/30 pb-4">
+<span class="text-surface-variant font-label-sm">Items Scanned</span>
+<span class="font-label-md">3 of 3</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-surface-variant font-label-sm">Estimated Payout</span>
+<span class="text-secondary-fixed font-bold">~ $1,100.00</span>
+</div>
+</div>
+<div class="p-4 bg-white/10 rounded-xl">
+<p class="text-sm font-body-sm italic opacity-80">"Scanning complete. Please review the flagged items to ensure maximum reimbursement."</p>
+</div>
+</div>
+<!-- Helpful Guidelines -->
+<div class="bg-surface-container-high rounded-2xl p-6 border border-outline-variant/30">
+<h4 class="font-label-md text-label-md mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="info">info</span>
+                            Best Practices
+                        </h4>
+<ul class="space-y-3">
+<li class="flex gap-3 items-start">
+<div class="w-5 h-5 rounded-full bg-secondary-container flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[12px] text-on-secondary-container" data-icon="done">done</span>
+</div>
+<p class="text-sm font-body-sm">Ensure all four corners of receipts are visible in images.</p>
+</li>
+<li class="flex gap-3 items-start">
+<div class="w-5 h-5 rounded-full bg-secondary-container flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[12px] text-on-secondary-container" data-icon="done">done</span>
+</div>
+<p class="text-sm font-body-sm">Include itemized lists, not just the total balance.</p>
+</li>
+<li class="flex gap-3 items-start">
+<div class="w-5 h-5 rounded-full bg-secondary-container flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[12px] text-on-secondary-container" data-icon="done">done</span>
+</div>
+<p class="text-sm font-body-sm">PDF formats are preferred for digital statements.</p>
+</li>
+</ul>
+</div>
+<!-- Contextual Support -->
+<div class="bg-white rounded-2xl p-6 border border-outline-variant flex items-center gap-4 group cursor-pointer hover:shadow-lg transition-all">
+<div class="w-12 h-12 bg-surface-container rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface" data-icon="support_agent">support_agent</span>
+</div>
+<div class="flex-1">
+<h5 class="font-label-md text-label-md">Need assistance?</h5>
+<p class="text-xs text-on-surface-variant">Live chat available 24/7</p>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Global Actions -->
+<div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-outline-variant gap-4">
+<button class="w-full md:w-auto px-8 py-3 rounded-xl border border-outline-variant text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors">
+                    Save as Draft
+                </button>
+<div class="flex w-full md:w-auto gap-4">
+<button class="flex-1 md:px-12 py-3 rounded-xl bg-secondary text-on-secondary font-label-md text-label-md flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+                        Continue to Details
+                        <span class="material-symbols-outlined text-[20px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Mobile) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-surface-container-highest border-t border-outline-variant md:hidden z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 duration-100" href="./index.html">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-[10px] mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-95 duration-100" href="./my-claims.html">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="font-label-sm text-[10px] mt-1">Claims</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 duration-100" href="./upload-documents.html">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span class="font-label-sm text-[10px] mt-1">Vault</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 duration-100" href="./review-extracted-data.html">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-[10px] mt-1">Profile</span>
+</a>
+</nav>
+<script>
+        // Dropzone micro-interactions
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('fileInput');
+
+        dropzone.addEventListener('click', () => fileInput.click());
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                dropzone.classList.add('drag-active');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                dropzone.classList.remove('drag-active');
+            }, false);
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            console.log('Files dropped:', files);
+            // Simulated upload logic would go here
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            console.log('Files selected:', e.target.files);
+        });
+    </script>
+</body></html>

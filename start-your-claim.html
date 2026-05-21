@@ -1,0 +1,408 @@
+
+<!-- Start Your Claim - TrustAssure -->
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ClaimsPortal - Precision Claims Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#76777d",
+                        "tertiary": "#000000",
+                        "on-background": "#0b1c30",
+                        "outline-variant": "#c6c6cd",
+                        "tertiary-container": "#002113",
+                        "surface-container-high": "#dce9ff",
+                        "primary-fixed": "#dae2fd",
+                        "on-surface": "#0b1c30",
+                        "background": "#f8f9ff",
+                        "surface-container-low": "#eff4ff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "on-secondary-fixed-variant": "#005049",
+                        "surface-variant": "#d3e4fe",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface": "#f8f9ff",
+                        "primary": "#000000",
+                        "on-primary-container": "#7c839b",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-container": "#009668",
+                        "surface-tint": "#565e74",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "secondary": "#006a61",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#86f2e4",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#006f66",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-fixed": "#89f5e7",
+                        "primary-container": "#131b2e",
+                        "on-tertiary-fixed": "#002113",
+                        "on-surface-variant": "#45464d",
+                        "secondary-fixed-dim": "#6bd8cb",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#00201d",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed": "#6ffbbe",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#bec6e0",
+                        "inverse-surface": "#213145",
+                        "inverse-primary": "#bec6e0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "container-max-width": "1440px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "code": ["jetbrainsMono"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "code": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #f8f9ff; }
+        .glass-header {
+            backdrop-filter: blur(8px);
+            background-color: rgba(248, 249, 255, 0.85);
+        }
+        .bento-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0px 12px 32px rgba(15, 23, 42, 0.1);
+        }
+        .step-line::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            width: 100%;
+            height: 2px;
+            background: #c6c6cd;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-background overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="glass-header fixed top-0 w-full z-50 border-b border-outline-variant dark:border-outline">
+<div class="flex justify-between items-center w-full px-margin-desktop h-16 max-w-7xl mx-auto">
+<div class="flex items-center gap-2">
+<span class="text-headline-lg font-headline-lg font-bold text-primary dark:text-inverse-primary tracking-tight">ClaimsPortal</span>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-primary dark:text-inverse-primary font-bold transition-colors" href="./index.html">Home</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors px-3 py-1 rounded-lg" href="./verify-claim.html">Product</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors px-3 py-1 rounded-lg" href="./dashboard.html">Trust &amp; Security</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface hover:bg-surface-container-high p-2 rounded-full transition-colors">notifications</button>
+<div class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-full font-label-md cursor-pointer hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
+<span>Sign In</span>
+</div>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-20 px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
+<!-- Hero Section: High-Trust & Authority -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center mb-20">
+<div class="lg:col-span-7 space-y-8">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-label-sm">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>Automated Verification Active</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-background leading-tight">
+                    Claims resolution with <span class="text-secondary">surgical precision</span>.
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                    TrustAssure delivers high-fidelity automation for claims processing. Reduce manual cycles by 80% while maintaining absolute compliance and policy accuracy.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-xl font-label-md flex items-center justify-center gap-2 hover:shadow-lg transition-all active:scale-95">
+                        Start New Claim
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="border border-outline-variant text-on-surface px-8 py-4 rounded-xl font-label-md flex items-center justify-center gap-2 hover:bg-surface-container-low transition-all">
+                        View Demo
+                    </button>
+</div>
+<div class="flex items-center gap-6 pt-4">
+<div class="flex -space-x-3">
+<img class="w-10 h-10 rounded-full border-2 border-surface" data-alt="Close up headshot of a professional insurance adjuster in a modern office setting, soft natural lighting, high key bright environment, corporate professional aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJ8KERTSTW2Pry9vYsNwvlPGeQ7vqNlOsf7uWWiuzNU3E9kVhSR5dKQyybgGsB74wYjF5hEM1QWRiJQLsvjTOReWwsxPwj9XkHeeLPPUl7oms0z-EuYFXGKt76Z5jdtxScmuA2eavq4kqN4abUy4Y1xQTHMJjtwDHMMDX-SodF4VPDbQ8LaKhPq7hcaWe_Ucno7sHESNjF3QliChNLIRxh6py2E9rv2PjEKePMs7oad4_Ua7zAuG1RsVcxXB1BdklksW1F-K67ZGLP"/>
+<img class="w-10 h-10 rounded-full border-2 border-surface" data-alt="Portrait of a female corporate executive with a friendly expression, modern minimalist office background, soft daylight, professional clean look using a slate and navy color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3s7zWYlckPw3XkcWXhZc2HWvDalP1kswye_zN7x7NJkwmCnLPgXr3GyF2C2ro8fMN_VBaXFjvzGx6NCq_zHYwRyIDgTMbkuE2wkSLGunVKOa4G8aSu32NAk-5ABO9aDl5yKSE6T-Q0iGQkrw2EYKYocZa3zbOZQ-8DmUiK7InnP1I7Uhi4SPulx0EcbkRAfyRdrEZuLCizErsBWiSG7JR_89rqYco4j1pLsLmvsgW7gpCM_HITKvTwERbH2kUX6jA0e2dQjtJmRpX"/>
+<img class="w-10 h-10 rounded-full border-2 border-surface" data-alt="Male professional smiling confidently, high quality studio lighting, sharp focus on facial features, clean corporate style, bright white and teal atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApb8OsnG0aXRrjbLFSPFyXNj2f1eg0lPL-5Pj_6R0ZzAiEBa10Rs8r7zKJhJhPdl0Uo2U1dO04E1gmP3lRFZEkqJPd7I6fYUpXm9CCICJLZaYS6yrqRlLf1KL80kOuQc4Tt6UrhmUainZNgBjT__1aLzXIwupctnqsbg6lxmwTmU7EJWiS629R3TmS0zzXciKCi1nKEEuSpQJHlhC_sQf3YDk270YAFpKefBUZpVrsMU0mwyNjiZ7H0-Kxhqvf59S5DZZOw6Js0Q8p"/>
+</div>
+<p class="font-label-sm text-on-surface-variant">Trusted by 5,000+ adjusters worldwide</p>
+</div>
+</div>
+<div class="lg:col-span-5 relative">
+<div class="absolute -inset-4 bg-secondary-container/20 blur-3xl rounded-full"></div>
+<div class="relative bg-white border border-outline-variant p-6 rounded-3xl shadow-xl space-y-6">
+<div class="flex justify-between items-center border-b border-outline-variant pb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-secondary/10 flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-secondary">analytics</span>
+</div>
+<div>
+<p class="font-label-md text-on-surface">Claim Analysis</p>
+<p class="text-[12px] text-on-surface-variant">#CLM-8829-PX</p>
+</div>
+</div>
+<span class="px-2 py-1 bg-emerald-100 text-emerald-900 rounded font-label-sm">Verified</span>
+</div>
+<div class="space-y-4">
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-3/4 animate-[progress_2s_ease-in-out]"></div>
+</div>
+<div class="flex justify-between text-label-sm">
+<span class="text-on-surface-variant">Policy Match</span>
+<span class="text-secondary font-bold">98.4%</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl space-y-2">
+<div class="flex items-center gap-2 text-label-sm text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-secondary">check_circle</span>
+                            Proof of Loss Authenticated
+                        </div>
+<div class="flex items-center gap-2 text-label-sm text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-secondary">check_circle</span>
+                            Receipts Cross-Referenced
+                        </div>
+</div>
+<button class="w-full py-3 bg-on-background text-white rounded-xl font-label-md">Approve Payment</button>
+</div>
+</div>
+</section>
+<!-- Fast-Track Guide: Asymmetric Bento Grid -->
+<section class="mb-20">
+<div class="mb-12 text-center">
+<h2 class="font-headline-lg text-headline-lg mb-4">The Fast-Track Journey</h2>
+<p class="text-on-surface-variant max-w-xl mx-auto">Experience a streamlined 3-step process designed to get your claims processed and paid in record time.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Step 1 -->
+<div class="bento-card bg-white border border-outline-variant p-8 rounded-3xl flex flex-col items-center text-center group">
+<div class="w-16 h-16 bg-surface-container-high rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:rotate-6">
+<span class="material-symbols-outlined text-primary text-[32px]">person_add</span>
+</div>
+<span class="font-label-sm text-secondary uppercase tracking-widest mb-2">Step 01</span>
+<h3 class="font-headline-md text-headline-md mb-4">Create Account</h3>
+<p class="text-on-surface-variant font-body-sm">Sign up in seconds with secure biometric or SSO integration. Your data is protected by bank-grade encryption.</p>
+</div>
+<!-- Step 2 -->
+<div class="bento-card bg-surface-container-low border border-outline-variant p-8 rounded-3xl flex flex-col items-center text-center group">
+<div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-primary text-[32px]">upload_file</span>
+</div>
+<span class="font-label-sm text-secondary uppercase tracking-widest mb-2">Step 02</span>
+<h3 class="font-headline-md text-headline-md mb-4">Upload Receipts</h3>
+<p class="text-on-surface-variant font-body-sm">Our AI instantly extracts data from your documents, identifying line items and verifying totals automatically.</p>
+</div>
+<!-- Step 3 -->
+<div class="bento-card bg-white border border-outline-variant p-8 rounded-3xl flex flex-col items-center text-center group">
+<div class="w-16 h-16 bg-surface-container-high rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:-rotate-6">
+<span class="material-symbols-outlined text-primary text-[32px]">payments</span>
+</div>
+<span class="font-label-sm text-secondary uppercase tracking-widest mb-2">Step 03</span>
+<h3 class="font-headline-md text-headline-md mb-4">Get Paid</h3>
+<p class="text-on-surface-variant font-body-sm">Once verified, funds are released directly to your account. No more waiting weeks for a physical check.</p>
+</div>
+</div>
+</section>
+<!-- Dynamic Content Section: Automated Processing Visual -->
+<section class="bg-primary-container text-on-primary rounded-[40px] p-8 md:p-16 relative overflow-hidden mb-20">
+<!-- Decorative Background Element -->
+<div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-secondary/20 to-transparent pointer-events-none"></div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+<div class="space-y-6">
+<h2 class="font-headline-xl text-white">Why Professionals Choose ClaimsPortal</h2>
+<div class="space-y-4">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary mt-1">speed</span>
+<div>
+<h4 class="font-label-md text-white">Real-time Adjudication</h4>
+<p class="text-on-primary-container text-body-sm">AI-driven policy analysis provides instant feedback on claim eligibility.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary mt-1">security</span>
+<div>
+<h4 class="font-label-md text-white">Fraud Prevention</h4>
+<p class="text-on-primary-container text-body-sm">Advanced anomaly detection identifies suspicious patterns before they become issues.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-secondary mt-1">history_edu</span>
+<div>
+<h4 class="font-label-md text-white">Full Audit Trail</h4>
+<p class="text-on-primary-container text-body-sm">Transparent logging of every decision point for complete regulatory compliance.</p>
+</div>
+</div>
+</div>
+<button class="bg-secondary text-white px-8 py-3 rounded-xl font-label-md hover:bg-opacity-90 transition-all">View Security Protocols</button>
+</div>
+<div class="hidden lg:block">
+<img class="rounded-2xl shadow-2xl border border-outline/20" data-alt="Sophisticated data visualization dashboard on a large glass screen, featuring complex line charts and interconnected nodes representing claim workflows, deep navy and emerald color scheme, cinematic lighting in a darkened control room." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkMe__p9SQZLWTkooSAa83MUq1IImfFcllwymSm9izW5QgbHFbpnIFC-9mT3naAwqrb5bMRRH4nJu-GFtOJoSJzQAJTMrTo0Ycr8qkClRhUMDAd8DNaOYxxr9MeG74AylMqoGa28rAVHZADqpK9RSNtug4kZSrgaWaJW9GTImIAj6QJqVTrYH__eYExlDXXQx7mhcD1p31QmySJ71kytyr_KesLnokBspl0SII8ZAn9gDpLeJs_djNAI2_ODX1a5cHhyqzju4xU-CR"/>
+</div>
+</div>
+</section>
+<!-- Trust Indicators -->
+<section class="py-12 border-t border-outline-variant">
+<div class="flex flex-wrap justify-center gap-12 opacity-50 grayscale hover:grayscale-0 transition-all">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[32px]">shield</span>
+<span class="font-bold text-headline-md">SecureVault</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[32px]">apartment</span>
+<span class="font-bold text-headline-md">GlobalInsure</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[32px]">account_balance</span>
+<span class="font-bold text-headline-md">FederalPolicy</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[32px]">verified_user</span>
+<span class="font-bold text-headline-md">TrustLine</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-surface-container-highest dark:bg-on-background shadow-[0px_-4px_12px_rgba(15,23,42,0.08)] md:hidden z-50 rounded-t-xl">
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-1 active:scale-95 duration-100" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-sm-mobile font-label-sm-mobile">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="text-label-sm-mobile font-label-sm-mobile">Claims</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+<span class="text-label-sm-mobile font-label-sm-mobile">Vault</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-label-sm-mobile font-label-sm-mobile">Profile</span>
+</a>
+</nav>
+<!-- Footer: Desktop Only -->
+<footer class="hidden md:block bg-surface-container-low border-t border-outline-variant py-12 mt-12">
+<div class="max-w-7xl mx-auto px-margin-desktop grid grid-cols-4 gap-gutter">
+<div class="space-y-4">
+<span class="text-headline-md font-bold text-primary">ClaimsPortal</span>
+<p class="text-label-sm text-on-surface-variant">The gold standard in claims automation and policyholder experience.</p>
+</div>
+<div class="space-y-4">
+<h5 class="font-label-md">Company</h5>
+<nav class="flex flex-col gap-2 text-label-sm text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="./about.html">About Us</a>
+<a class="hover:text-primary transition-colors" href="#">Careers</a>
+<a class="hover:text-primary transition-colors" href="#">Legal</a>
+</nav>
+</div>
+<div class="space-y-4">
+<h5 class="font-label-md">Support</h5>
+<nav class="flex flex-col gap-2 text-label-sm text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="#">Help Center</a>
+<a class="hover:text-primary transition-colors" href="#">API Docs</a>
+<a class="hover:text-primary transition-colors" href="#">Status</a>
+</nav>
+</div>
+<div class="space-y-4">
+<h5 class="font-label-md">Connect</h5>
+<div class="flex gap-4">
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary">share</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary">mail</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-secondary">public</span>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-margin-desktop mt-12 pt-8 border-t border-outline-variant flex justify-between text-label-sm text-on-surface-variant">
+<span>© 2024 TrustAssure Technologies. All rights reserved.</span>
+<div class="flex gap-6">
+<a href="#">Privacy Policy</a>
+<a href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for smooth scrolling or hover effects
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => {
+                btn.style.transform = 'scale(0.98)';
+            });
+            btn.addEventListener('mouseup', () => {
+                btn.style.transform = 'scale(1)';
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-700');
+            observer.observe(card);
+        });
+    </script>
+</body></html>

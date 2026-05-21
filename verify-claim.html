@@ -1,0 +1,348 @@
+
+<!-- Verify Claim - Claims Intelligence -->
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Extraction &amp; Verification Workspace | ClaimFlow AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#dce9ff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-bright": "#f8f9ff",
+                        "background": "#f8f9ff",
+                        "primary-container": "#131b2e",
+                        "on-surface-variant": "#45464d",
+                        "tertiary": "#000000",
+                        "primary-fixed-dim": "#bec6e0",
+                        "surface-tint": "#565e74",
+                        "outline": "#76777d",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#89f5e7",
+                        "on-tertiary-fixed": "#002113",
+                        "on-surface": "#0b1c30",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary-container": "#006f66",
+                        "surface-variant": "#d3e4fe",
+                        "on-background": "#0b1c30",
+                        "tertiary-fixed": "#6ffbbe",
+                        "primary-fixed": "#dae2fd",
+                        "secondary-container": "#86f2e4",
+                        "secondary": "#006a61",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "primary": "#000000",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-container": "#009668",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#cbdbf5",
+                        "on-primary-container": "#7c839b",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#005049",
+                        "secondary-fixed-dim": "#6bd8cb",
+                        "inverse-primary": "#bec6e0",
+                        "outline-variant": "#c6c6cd",
+                        "surface-container": "#e5eeff",
+                        "tertiary-container": "#002113",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "on-secondary-fixed": "#00201d",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#213145",
+                        "surface": "#f8f9ff",
+                        "on-primary-fixed": "#131b2e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "code": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "code": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ocr-box {
+            position: absolute;
+            border: 2px solid #006f66;
+            background-color: rgba(0, 111, 102, 0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .ocr-box:hover {
+            background-color: rgba(0, 111, 102, 0.25);
+            box-shadow: 0 0 0 4px rgba(0, 111, 102, 0.15);
+        }
+        .ocr-box.flagged {
+            border-color: #ba1a1a;
+            background-color: rgba(186, 26, 26, 0.1);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c6c6cd;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #76777d;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full z-40 hidden md:flex flex-col py-6 bg-primary-container border-r border-outline-variant dark:border-outline w-64">
+<div class="px-6 mb-8">
+<h1 class="text-headline-lg font-headline-lg font-bold text-on-primary-fixed dark:text-primary-fixed">ClaimFlow AI</h1>
+<p class="text-label-md font-label-md text-on-primary-container">Enterprise Admin</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 text-on-primary-container hover:bg-surface-variant/10 rounded-lg px-4 py-3 mx-2 transition-colors duration-200" href="./dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 bg-secondary-container text-on-secondary-container rounded-lg px-4 py-3 mx-2 transition-all opacity-90 scale-[0.98]" href="./my-claims.html">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="font-label-md">Claims</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary-container hover:bg-surface-variant/10 rounded-lg px-4 py-3 mx-2 transition-colors duration-200" href="./analytics-reports.html">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md">Analytics</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary-container hover:bg-surface-variant/10 rounded-lg px-4 py-3 mx-2 transition-colors duration-200" href="./review-extracted-data.html">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-2 space-y-1">
+<button class="w-[calc(100%-16px)] mx-2 bg-secondary text-on-secondary py-3 rounded-lg font-label-md mb-4 flex items-center justify-center gap-2 hover:opacity-90">
+<span class="material-symbols-outlined">add</span>
+                New Claim
+            </button>
+<a class="flex items-center gap-3 text-on-primary-container hover:bg-surface-variant/10 rounded-lg px-4 py-2 mx-2" href="./verify-claim.html">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md">Help</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary-container hover:bg-surface-variant/10 rounded-lg px-4 py-2 mx-2" href="./upload-documents.html">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- TopAppBar (Shared Component) -->
+<header class="fixed top-0 right-0 left-0 md:left-64 z-30 flex justify-between items-center px-8 h-20 bg-surface/80 backdrop-blur-md border-b border-outline-variant">
+<div class="flex items-center gap-8">
+<h2 class="text-headline-md font-headline-md font-extrabold text-on-surface">Claims Intelligence</h2>
+<nav class="hidden lg:flex gap-6">
+<a class="text-on-surface-variant hover:text-on-surface pb-4 transition-all" href="./index.html">Queue</a>
+<a class="text-on-surface-variant hover:text-on-surface pb-4 transition-all" href="./verify-claim.html">Verified</a>
+<a class="text-secondary font-bold border-b-2 border-secondary pb-4" href="./review-extracted-data.html">Flagged</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-body-sm w-64 focus:ring-2 focus:ring-secondary-container transition-all" placeholder="Search claims..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="bg-error/10 text-error px-4 py-2 rounded-lg font-label-md flex items-center gap-2 hover:bg-error/20 transition-all">
+                    Review Flagged
+                </button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-secondary">
+<img alt="Administrator profile" data-alt="A professional headshot of a senior insurance administrator in a well-lit modern corporate office. The subject is wearing a crisp charcoal suit and white shirt, projecting confidence and authority. The background is slightly blurred with soft blue and gray tones, emphasizing a clean light-mode aesthetic. The lighting is high-key and professional, suitable for a high-stakes enterprise UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBds8wCtsFN1SZrUh28BsuTnDVgdt7wPyfsjSPmswfrKedKPOssc4cf438aruYeyipN8ypoBI8NjDeF1PpCVIPBOX9mrNkcmTUFi4vmGZay-8EcTRJkuedNOycNXlnJLqOB8kferCI3G5OddbKlOXyW4u7QB4U5nQi9TYg24dejEl8lxJ5Sv8SHL-RtjXGSlvHwfKWhyr_J070iuUMVxrNa8_HKpZZ0xEa7VGtBO6GMrG6x-zL-yd2q9JwEYc5BWAOuLBOb_uEuDbQF"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Workspace -->
+<main class="pt-20 md:ml-64 h-screen flex flex-col">
+<div class="flex-1 flex overflow-hidden">
+<!-- Left Side: Receipt Scan -->
+<section class="flex-1 bg-surface-container-low p-6 overflow-hidden flex flex-col">
+<div class="mb-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">image</span>
+<h3 class="font-headline-md text-on-surface">Digital Asset Analysis</h3>
+</div>
+<div class="flex gap-2">
+<button class="p-2 bg-surface rounded-lg border border-outline-variant hover:bg-surface-variant/20"><span class="material-symbols-outlined">zoom_in</span></button>
+<button class="p-2 bg-surface rounded-lg border border-outline-variant hover:bg-surface-variant/20"><span class="material-symbols-outlined">zoom_out</span></button>
+<button class="p-2 bg-surface rounded-lg border border-outline-variant hover:bg-surface-variant/20"><span class="material-symbols-outlined">rotate_right</span></button>
+</div>
+</div>
+<div class="flex-1 bg-white border border-outline-variant rounded-xl overflow-auto relative shadow-sm group">
+<div class="min-w-fit p-10 flex justify-center">
+<div class="relative inline-block">
+<img alt="Receipt Scan" class="max-w-2xl h-auto rounded-sm shadow-xl" data-alt="A high-resolution overhead digital scan of a medical expense receipt from a clinic. The document is placed on a clean slate-gray surface. The lighting is perfectly even, simulating a document scanner's output. Various parts of the receipt like the date, merchant name, and total amount are highlighted with subtle teal digital overlays, representing OCR bounding boxes in a modern AI-powered insurance interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0Q6WMWGLKpHbpKQ1PQBm2-Q093duL8k2CVCcyuKXJHEsuwj0xCW8MiBeWuiqCXkpivf-DqG0kxN35uxUYfTNHXCw7zAyPgQcH0TFs5WGTvdwSqPMHqSF-Kfkjmid2J9VsKrsF7P8g-p_CmRBQsOxwRAchH4VV-kCGa5nPi7DtESi62vmeawOCa-IkvK45DP7GKv-4zFWrfGH7BebP49KrFXT-koi7abGM2gfmlftnS_Z5aIM0XUBe03e8JaGNa_H99HgDWNvPnSGa"/>
+<!-- Simulated OCR Bounding Boxes -->
+<div class="ocr-box" style="top: 12%; left: 35%; width: 30%; height: 6%;" title="Vendor: City Medical Plaza"></div>
+<div class="ocr-box" style="top: 25%; left: 15%; width: 20%; height: 4%;" title="Date: Oct 24, 2023"></div>
+<div class="ocr-box flagged" style="top: 68%; left: 65%; width: 25%; height: 8%;" title="Duplicate Entry Detected"></div>
+<div class="ocr-box" style="top: 80%; left: 10%; width: 80%; height: 12%;" title="Itemized List Extraction"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Side: Data Extraction Form -->
+<section class="w-[450px] bg-surface border-l border-outline-variant flex flex-col">
+<div class="p-6 border-b border-outline-variant flex items-center justify-between">
+<div>
+<h3 class="font-headline-md text-on-surface">Extracted Metadata</h3>
+<p class="text-body-sm text-on-surface-variant">Confidence Score: <span class="text-secondary font-bold">94%</span></p>
+</div>
+<span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-label-sm uppercase tracking-wider">AI Verified</span>
+</div>
+<div class="flex-1 overflow-y-auto p-6 space-y-6">
+<!-- Form Fields -->
+<div class="space-y-1.5">
+<label class="font-label-md text-on-surface">Vendor Name</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-secondary-container focus:border-secondary outline-none transition-all" type="text" value="City Medical Plaza"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-secondary text-sm">check_circle</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="font-label-md text-on-surface">Date</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-secondary-container focus:border-secondary outline-none transition-all" type="text" value="10/24/2023"/>
+</div>
+<div class="space-y-1.5">
+<label class="font-label-md text-on-surface">Category</label>
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 focus:ring-2 focus:ring-secondary-container focus:border-secondary outline-none transition-all appearance-none">
+<option>Medical Services</option>
+<option>Pharmacy</option>
+<option>Travel/Uber</option>
+</select>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="font-label-md text-on-surface">Amount (USD)</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 font-code focus:ring-2 focus:ring-secondary-container focus:border-secondary outline-none transition-all" type="text" value="$1,240.00"/>
+</div>
+<!-- Flagged Warnings -->
+<div class="space-y-4 pt-4 border-t border-outline-variant">
+<div class="p-4 bg-error-container/20 border border-error/20 rounded-xl flex gap-3 animate-pulse">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+<div>
+<p class="font-label-md text-error-container text-on-error-container">Duplicate Entry Detected</p>
+<p class="text-body-sm text-on-error-container/80">Similar claim submitted on 10/12/2023 (Ref: CLM-9021). Please verify the service period.</p>
+</div>
+</div>
+<div class="p-4 bg-tertiary-container/30 border border-tertiary-fixed-dim/20 rounded-xl flex gap-3">
+<span class="material-symbols-outlined text-on-tertiary-container" style="font-variation-settings: 'FILL' 1;">info</span>
+<div>
+<p class="font-label-md text-on-tertiary-container">Inconsistent Trip Timings</p>
+<p class="text-body-sm text-on-tertiary-container/80">Check-in recorded at 09:15 AM, but travel receipt shows drop-off at 09:45 AM.</p>
+</div>
+</div>
+</div>
+<!-- AI Insights -->
+<div class="bg-secondary-container/10 border border-secondary-container rounded-xl p-4">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-secondary text-sm">auto_awesome</span>
+<span class="font-label-md text-secondary uppercase tracking-tight">AI Policy Match</span>
+</div>
+<p class="text-body-sm text-on-secondary-container">Item covers standard policy section 4.2 (Diagnostic Imaging). Full reimbursement recommended upon verification of duplication flag.</p>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="p-6 bg-surface-container-lowest border-t border-outline-variant grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center gap-2 border border-error text-error py-3 rounded-lg font-label-md hover:bg-error/10 transition-all">
+<span class="material-symbols-outlined">flag</span>
+                        Escalate
+                    </button>
+<button class="flex items-center justify-center gap-2 bg-secondary text-on-secondary py-3 rounded-lg font-label-md hover:opacity-90 transition-all shadow-md">
+<span class="material-symbols-outlined">verified</span>
+                        Verify Data
+                    </button>
+</div>
+</section>
+</div>
+</main>
+<!-- Contextual Toast -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface px-6 py-3 rounded-full flex items-center gap-3 shadow-2xl opacity-0 translate-y-10 transition-all duration-500 z-50" id="toast">
+<span class="material-symbols-outlined text-secondary-fixed">check_circle</span>
+<span class="font-label-md">Entry successfully updated and re-scanned.</span>
+</div>
+<script>
+        // Micro-interaction: OCR Box hover sync with form focus
+        const ocrBoxes = document.querySelectorAll('.ocr-box');
+        const toast = document.getElementById('toast');
+
+        ocrBoxes.forEach(box => {
+            box.addEventListener('click', () => {
+                box.style.transform = 'scale(1.1)';
+                setTimeout(() => box.style.transform = 'scale(1)', 200);
+                
+                // Show toast
+                toast.classList.remove('opacity-0', 'translate-y-10');
+                toast.classList.add('opacity-100', 'translate-y-0');
+                
+                setTimeout(() => {
+                    toast.classList.add('opacity-0', 'translate-y-10');
+                    toast.classList.remove('opacity-100', 'translate-y-0');
+                }, 3000);
+            });
+        });
+
+        // Simple smooth scroll for sidebar links
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Visual feedback only for demo
+                document.querySelectorAll('nav a').forEach(l => {
+                    l.classList.remove('bg-secondary-container', 'text-on-secondary-container', 'opacity-90', 'scale-[0.98]');
+                    l.classList.add('text-on-primary-container', 'hover:bg-surface-variant/10');
+                });
+                link.classList.remove('text-on-primary-container', 'hover:bg-surface-variant/10');
+                link.classList.add('bg-secondary-container', 'text-on-secondary-container', 'opacity-90', 'scale-[0.98]');
+            });
+        });
+    </script>
+</body></html>
